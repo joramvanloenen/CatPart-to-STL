@@ -351,9 +351,12 @@ async function convertNative() {
 function downloadSTL() {
   try {
     if (!file || !triangleCount) throw new Error('No validated geometry available for STL export.');
-    source.updateMatrixWorld(true);
+    // Export from a detached clone so the viewer-only centering transform
+    // does not alter the original CAD coordinates written to the STL.
+    const exportRoot = source.clone(true);
+    exportRoot.updateMatrixWorld(true);
     const blob = nativeBlob || new Blob(
-      [new STLExporter().parse(source, { binary: true })],
+      [new STLExporter().parse(exportRoot, { binary: true })],
       { type: 'model/stl' }
     );
     const url = URL.createObjectURL(blob);
