@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#11191c">
+<meta name="description" content="CATPart to STL workbench. Inspect CATIA V5 files, convert open CAD and mesh formats in your browser, connect a native CATIA translator.">
+<title>CATPart → STL — Geometry Workbench</title>
+<link rel="stylesheet" href="./styles.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.174.0/examples/jsm/"}}</script>
+<script type="module" src="./app.js"></script>
+</head>
+<body>
+<div class="app">
+<header class="topbar"><div class="logo"><span class="mark">◈</span>CAT<span class="dim">PART</span><span class="slash"> / </span>STL</div><div class="topright"><span class="dot"></span><span class="toplabel">GEOMETRY WORKBENCH</span><a target="_blank" rel="noopener noreferrer" href="https://github.com/joramvanloenen/CatPart-to-STL">GitHub ↗</a></div></header>
+<main>
+<section class="intro"><div class="eyebrow"><span class="dash"></span> MODEL TRANSLATION / 001</div><h1>From CAD to <em>print-ready.</em></h1><p>Inspect, preview and export geometry to STL. Open CAD and mesh formats run privately in your browser. CATIA parts use a connected native translator.</p></section>
+<div class="workspace">
+<section class="panel controls">
+<div class="section-head"><span>01</span><h2>Source model</h2></div>
+<div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Choose model"><input type="file" id="file-input" hidden accept=".CATPart,.catpart,.step,.stp,.iges,.igs,.brep,.brp,.obj,.stl"><div class="upload-icon">⇧</div><strong>Drop your CAD file here</strong><p>or <u>browse files</u> from your computer</p><small>CATPART · STEP · IGES · BREP · OBJ · STL</small></div>
+<div id="file-card" class="file-card hidden"><span id="file-badge" class="file-badge">CAD</span><div class="file-meta"><strong id="file-name"></strong><small id="file-details"></small></div><button id="clear-file" class="clear" title="Remove file" aria-label="Remove file">×</button></div>
+<div class="info"><div><span>FILE STATUS</span><b id="file-status">AWAITING INPUT</b></div><div><span>FORMAT DETECTED</span><b id="format-status">—</b></div><div><span>CATIA RELEASE</span><b id="release-status">—</b></div></div>
+<div class="section-head settings-head"><span>02</span><h2>Output settings</h2></div>
+<div class="between"><label for="quality">Mesh resolution</label><span id="quality-value">Fine · 0.10 mm</span></div>
+<input type="range" id="quality" min="0" max="3" value="2" step="1"><div class="range-caps"><span>COARSE</span><span>FINE</span><span>ULTRA</span></div>
+<p class="hint">Quality controls STEP / IGES triangulation. An existing mesh or a native translator's result keeps its original density.</p>
+<div class="between output"><span>Output format</span><span class="chip">STL <small>BINARY</small></span></div>
+<button id="convert" class="primary" disabled><span id="convert-label">CHOOSE A MODEL</span><span>↗</span></button>
+<div id="message" class="message" aria-live="polite">Files stay on your device unless you deliberately use a remote translator.</div>
+</section>
+<section class="panel right">
+<div class="viewer-head"><div><span class="tiny-dot"></span>3D PREVIEW <span class="muted">/ INTERACTIVE</span></div><div class="viewer-buttons"><button id="fit-view" disabled>FIT</button><button id="wireframe" disabled>WIREFRAME</button></div></div>
+<div id="viewport" class="viewport"><div id="placeholder" class="placeholder"><svg viewBox="0 0 240 240" fill="none" aria-hidden="true"><path d="M120 35 194 77v86l-74 42-74-42V77l74-42Z" stroke="currentColor" stroke-width="1.4"/><path d="m46 77 74 43 74-43M120 120v85" stroke="currentColor" stroke-width="1.4" opacity=".8"/></svg><p>YOUR MODEL WILL APPEAR HERE</p><small>Drag to orbit · Scroll to zoom · Right drag to pan</small></div><span class="axes">X <i>Y</i> Z</span></div>
+<div class="viewer-bottom"><span id="view-state">NO GEOMETRY LOADED</span><span id="triangle-count">— TRIANGLES</span></div>
+<div class="metrics"><div><small>WIDTH</small><strong id="size-x">—</strong></div><div><small>HEIGHT</small><strong id="size-y">—</strong></div><div><small>DEPTH</small><strong id="size-z">—</strong></div></div>
+</section></div>
+<section class="native panel" id="native-panel">
+<div class="native-head"><span class="native-icon">↗</span><div><h2>Native CATIA translator</h2><p>CATPart needs a CATIA-compatible geometry engine. GitHub Pages cannot run that engine itself.</p></div><span class="tag">OPTIONAL CONNECTION</span></div>
+<div class="endpoint-row"><label for="endpoint">TRANSLATOR API URL</label><div class="endpoint-input"><input id="endpoint" type="url" placeholder="https://your-converter.example.com/convert" spellcheck="false"><button id="save-endpoint">SAVE</button></div></div>
+<p class="hint">A CATPart is uploaded <b>only when you press Convert using translator</b>. The API must accept a multipart form field named <code>file</code> and return STL bytes. Never put private API keys in this public page. <a target="_blank" rel="noopener noreferrer" href="https://github.com/joramvanloenen/CatPart-to-STL#native-catpart-conversion">Backend setup ↗</a></p>
+<div class="native-links"><a href="https://www.cadprops.com/tools/catia-viewer/" target="_blank" rel="noopener noreferrer">External CATPart viewer ↗</a><a href="https://cadexchanger.com/catpart-to-stl/" target="_blank" rel="noopener noreferrer">Licensed converters ↗</a></div>
+</section>
+</main><footer><span>CATPART / STL — OPEN CONVERSION INTERFACE</span><span>GITHUB PAGES · NO FILES STORED</span></footer>
+</div>
+</body></html>
