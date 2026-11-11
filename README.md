@@ -1,1 +1,0 @@
-# CatPart-to-STL
